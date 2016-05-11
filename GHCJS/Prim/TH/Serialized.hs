@@ -29,7 +29,7 @@ instance Binary Serialized where
     get = Serialized <$> get <*> get
 
 instance Binary TyCon where
-    put (TyCon _ p m n) = put p >> put m >> put n
+    put tc = put (tyConPackage tc) >> put (tyConModule tc) >> put (tyConName tc)
     get = mkTyCon3 <$> get <*> get <*> get
 
 instance Binary TypeRep where

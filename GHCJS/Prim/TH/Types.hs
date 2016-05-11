@@ -1,5 +1,5 @@
 {-# OPTIONS_GHC -O0 #-}
-{-# LANGUAGE CPP, DeriveGeneric, LambdaCase, MagicHash, StandaloneDeriving #-}
+{-# LANGUAGE CPP, DeriveGeneric, LambdaCase, MagicHash, StandaloneDeriving, TypeSynonymInstances #-}
 
 {- |
      Communication between the compiler (GHCJS) and runtime (on node.js) for
@@ -64,7 +64,7 @@ data Message
 instance Binary THResultType
 instance Binary Message
 
-#if MIN_VERSION_template_haskell(2,11,0)
+#if MIN_VERSION_template_haskell(2,12,0)
 #error "unsupported template-haskell version"
 #elif MIN_VERSION_template_haskell(2,9,0)
 
@@ -150,6 +150,10 @@ instance Binary TH.Range
 instance Binary TH.Stmt
 instance Binary TH.Pat
 instance Binary TH.Exp
+instance Binary TH.Overlap
+instance Binary TH.InjectivityAnn
+instance Binary TH.FamilyResultSig
+instance Binary TH.TypeFamilyHead
 instance Binary TH.Dec
 instance Binary TH.Guard
 instance Binary TH.Body
@@ -167,6 +171,8 @@ instance Binary TH.Pragma
 instance Binary TH.Safety
 instance Binary TH.Callconv
 instance Binary TH.Foreign
+instance Binary TH.SourceUnpackedness
+instance Binary TH.SourceStrictness
 instance Binary TH.Strict
 instance Binary TH.FixityDirection
 instance Binary TH.OccName
